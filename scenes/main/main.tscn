@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0t11exa0nitf"]
+
+[ext_resource type="Texture2D" uid="uid://c6oml2nlvqfjh" path="res://assets/sprites/campo-preto.png" id="1_tx83m"]
+[ext_resource type="Texture2D" uid="uid://b4vy4bv0agvsr" path="res://assets/sprites/jogador.png" id="2_qleh5"]
+[ext_resource type="PackedScene" uid="uid://dwjsu0ylfarfs" path="res://scenes/player/player.tscn" id="3_k7jxx"]
+[ext_resource type="PackedScene" uid="uid://cxpspbl4i1lk1" path="res://scenes/ball/ball.tscn" id="4_jiu3v"]
+[ext_resource type="PackedScene" uid="uid://dw0npnqft0nns" path="res://scenes/game_manager/game_manager.tscn" id="5_b3e21"]
+[ext_resource type="PackedScene" uid="uid://timgaf0nl3cj" path="res://scenes/goal/goal.tscn" id="6_cqrib"]
+[ext_resource type="FontFile" uid="uid://c3lw1rhfyix2q" path="res://assets/fonte/PublicPixel-z84yD.ttf" id="7_ap2sy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1dpoj"]
+font = ExtResource("7_ap2sy")
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_wnrh2"]
+font = ExtResource("7_ap2sy")
+font_size = 50
+
+[node name="Main" type="Node2D"]
+
+[node name="Field" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("1_tx83m")
+
+[node name="MidField" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.5, 5.6)
+texture = ExtResource("2_qleh5")
+
+[node name="Player1" parent="." instance=ExtResource("3_k7jxx")]
+position = Vector2(64, 360)
+
+[node name="Player2" parent="." instance=ExtResource("3_k7jxx")]
+position = Vector2(1216, 360)
+playerOne = false
+
+[node name="Ball" parent="." instance=ExtResource("4_jiu3v")]
+position = Vector2(640, 360)
+
+[node name="GameManager" parent="." instance=ExtResource("5_b3e21")]
+
+[node name="Goal1" parent="." instance=ExtResource("6_cqrib")]
+position = Vector2(-64, 0)
+
+[node name="Goal2" parent="." instance=ExtResource("6_cqrib")]
+position = Vector2(1344, 0)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Scoreboard" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScorePlayer1" type="Label" parent="UI/Scoreboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 10.0
+offset_right = -75.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_1dpoj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScorePlayer2" type="Label" parent="UI/Scoreboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 75.0
+offset_top = 10.0
+offset_right = 125.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_wnrh2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="Goal1" to="GameManager" method="_on_goal_1_area_entered"]
+[connection signal="area_entered" from="Goal2" to="GameManager" method="_on_goal_2_area_entered"]

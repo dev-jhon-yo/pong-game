@@ -1,0 +1,8 @@
+res://scenes/ball/ball.tscn
+res://scenes/game_manager/game_manager.tscn
+res://scenes/game_manager/game_manager.gd
+res://scenes/goal/goal.tscn
+res://scenes/main/main.tscn
+res://scenes/player/player.tscn
+res://scenes/ball/ball.gd
+res://scenes/player/player.gd
